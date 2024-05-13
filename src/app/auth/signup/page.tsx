@@ -42,7 +42,7 @@ const Signup = () => {
             })
             setIsSubmitting(false)
             if (response.data.success) {
-                router.push(`/auth/verify-email/${data.email}`)
+                router.push(`/auth/login`)
             }
             // console.log(response.data)
         } catch (error: any) {
