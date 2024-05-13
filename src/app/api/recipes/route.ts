@@ -20,7 +20,7 @@ export async function GET(request:NextRequest) {
 
     // const userId = new mongoose.Types.ObjectId(user._id);
     const userId = user._id;
-    console.log(userId)
+    // console.log(userId)
 
     try {
 

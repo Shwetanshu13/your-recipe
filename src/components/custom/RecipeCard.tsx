@@ -18,7 +18,7 @@ const RecipeCard = ({ name, ingredients, instructions, time, _id }: RecipeCardPr
   const deleteRecipe = async (id: string) => {
     try {
       const response = await axios.delete(`/api/delete-recipe/${id}`)
-      console.log(response)
+      // console.log(response)
     } catch (error) {
       console.log(error)
     }

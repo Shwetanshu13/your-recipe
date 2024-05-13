@@ -30,7 +30,7 @@ const RecipeItem = () => {
 
     useEffect(() => {
         fetchRecipe()
-    })
+    }, [recipeId])
 
     return (
         loading ? (<div className="bg-gray-100 min-h-screen flex items-center justify-center">
