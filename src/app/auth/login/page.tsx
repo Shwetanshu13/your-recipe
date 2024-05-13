@@ -68,7 +68,7 @@ const Login = () => {
         <div className="flex min-h-screen bg-gray-100">
             <div className="w-7/12 hidden lg:block">
                 <div className="flex justify-center items-center h-full">
-                    <Image src="/images/eRecipie.jpg" alt="signup" className="w-full" />
+                    <Image width={1000} height={1} src="/images/eRecipie.jpg" alt="signup" className="w-full" />
                 </div>
             </div>
             <div className='w-5/12 flex align-middle'>
