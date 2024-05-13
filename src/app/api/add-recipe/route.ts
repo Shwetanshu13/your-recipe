@@ -4,8 +4,6 @@ import { NextRequest } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
 import ApiResponse from "@/utils/ApiResponse";
 import RecipeModel from "@/model/Recipe.model";
-import { uploadImage } from "@/utils/cloudinary";
-
 
 export async function POST(request:NextRequest) {
     await dbConnect();
@@ -20,17 +18,13 @@ export async function POST(request:NextRequest) {
     const {name, ingredients, instructions, time} = await request.json();
     
 
-    // console.log(image.slice(12))
-    // const imgURL = null;
-
     try {
         const newRecipe = new RecipeModel({
             userid: user._id,
             name:name.trim(),
             ingredients:ingredients.trim(),
             instructions:instructions.trim(),
-            time:time.trim(),
-            // TODO:// imgURL
+            time:time.trim()
         });
 
         await newRecipe.save();
