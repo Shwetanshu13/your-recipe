@@ -14,6 +14,7 @@ import axios from 'axios'
 import ApiResponse from '@/utils/ApiResponse'
 import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const page = () => {
 
@@ -62,7 +63,7 @@ const page = () => {
     <div className='flex min-h-screen bg-gray-100'>
       <div className="w-5/12 hidden lg:block">
         <div className="h-full flex justify-center items-center">
-          <img src="/images/recipe.jpg" alt="Sample Recipe Pic" className='h-full' />
+          <Image src="/images/recipe.jpg" alt="Sample Recipe Pic" className='h-full' />
         </div>
       </div>
       <div className="w-full lg:w-7/12 flex align-middle">

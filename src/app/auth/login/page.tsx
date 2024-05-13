@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { loginSchema } from '@/schemas/loginSchema'
 import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 
 const page = () => {
 
@@ -67,7 +68,7 @@ const page = () => {
         <div className="flex min-h-screen bg-gray-100">
             <div className="w-7/12 hidden lg:block">
                 <div className="flex justify-center items-center h-full">
-                    <img src="/images/eRecipie.jpg" alt="signup" className="w-full" />
+                    <Image src="/images/eRecipie.jpg" alt="signup" className="w-full" />
                 </div>
             </div>
             <div className='w-5/12 flex align-middle'>
