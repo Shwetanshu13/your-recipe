@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
-const page = () => {
+const Signup = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -136,4 +136,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Signup

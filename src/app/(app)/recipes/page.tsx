@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 
-const page = () => {
+const Recipes = () => {
 
 
     const [recipes, setRecipes] = useState([])
@@ -77,4 +77,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Recipes

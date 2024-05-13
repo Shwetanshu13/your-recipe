@@ -15,7 +15,7 @@ import { loginSchema } from '@/schemas/loginSchema'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 
-const page = () => {
+const Login = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -117,7 +117,7 @@ const page = () => {
                         </Form>
                         <div className='mt-4'>
                             <h3 className='my-3 text-center text-gray-500'>
-                                Don't have an account?{' '}
+                                Don&apos;t have an account?{' '}
                                 <Link href='/auth/signup' className=' text-black'>Sign Up</Link>
                             </h3>
                         </div>
@@ -128,4 +128,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Login

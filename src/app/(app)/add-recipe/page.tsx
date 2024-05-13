@@ -16,7 +16,7 @@ import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-const page = () => {
+const AddRecipe = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -145,4 +145,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AddRecipe

@@ -6,7 +6,7 @@ import { Loader, Loader2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const RecipeItem = () => {
 
     const params = useParams<{ recipeId: string }>();
     const recipeId = decodeURIComponent(params.recipeId);
@@ -30,7 +30,7 @@ const page = () => {
 
     useEffect(() => {
         fetchRecipe()
-    }, [])
+    })
 
     return (
         loading ? (<div className="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -56,4 +56,4 @@ const page = () => {
     )
 }
 
-export default page
+export default RecipeItem
