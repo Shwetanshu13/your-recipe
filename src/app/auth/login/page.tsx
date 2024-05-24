@@ -71,7 +71,7 @@ const Login = () => {
                     <Image width={1000} height={1} src="/images/eRecipie.jpg" alt="signup" className="w-full" />
                 </div>
             </div>
-            <div className='w-5/12 flex align-middle'>
+            <div className='w-full lg:w-5/12 flex align-middle'>
                 <div className=' p-10 bg-white shadow-xl rounded-lg w-2/3 h-3/5 my-auto mx-auto'>
                     <div className="flex justify-center items-center flex-col mx-auto gap-3">
                         <h1 className='text-3xl text-center font-bold'>My Recipe Book</h1>
