@@ -6,12 +6,8 @@ import { Loader, Loader2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-<<<<<<< HEAD
 const RecipeItem = () => {
 
-=======
-const Page = () => {
->>>>>>> development
     const params = useParams<{ recipeId: string }>();
     const recipeId = decodeURIComponent(params.recipeId);
 
@@ -26,7 +22,7 @@ const Page = () => {
             setRecipe(response.data.messages);
             setIngredients(response.data.messages.ingredients.split('\n'));
             setInstructions(response.data.messages.instructions.split('\n'));
-            console.log(ingredients, instructions);
+            // console.log(ingredients, instructions);
         } catch (error) {
             console.log(error);
         } finally {
@@ -35,15 +31,8 @@ const Page = () => {
     };
 
     useEffect(() => {
-<<<<<<< HEAD
-        fetchRecipe()
-        separateIngredients(recipe?.ingredients)
-        separateInstructions(recipe?.instructions)
-    }, [recipeId])
-=======
         fetchRecipe();
-    }, []);
->>>>>>> development
+    }, [recipeId]);
 
     return (
         loading ? (
@@ -80,8 +69,4 @@ const Page = () => {
     );
 }
 
-<<<<<<< HEAD
 export default RecipeItem
-=======
-export default Page;
->>>>>>> development
