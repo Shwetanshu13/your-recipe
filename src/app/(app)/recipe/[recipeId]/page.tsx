@@ -15,6 +15,8 @@ const page = () => {
 
     const [recipe, setRecipe] = useState<Recipe>()
     const [loading, setLoading] = useState(true)
+    const[ingredients, setIngredients] = useState<string[]>([])
+    const[instructions, setInstructions] = useState<string[]>([])
 
     const fetchRecipe = async () => {
         try {
@@ -28,8 +30,22 @@ const page = () => {
         }
     }
 
+    const separateIngredients = (ingredients: string|undefined) => {
+        if(ingredients){
+            setIngredients(ingredients.split('\n'))
+        }
+    }
+
+    const separateInstructions = (instructions: string|undefined) => {
+        if(instructions){
+            setInstructions(instructions.split('\n'))
+        }
+    }
+
     useEffect(() => {
         fetchRecipe()
+        separateIngredients(recipe?.ingredients)
+        separateInstructions(recipe?.instructions)
     }, [])
 
     return (
@@ -44,11 +60,19 @@ const page = () => {
                 <h1 className="text-3xl font-bold mb-4">{recipe?.name}</h1>
                 <div className="mb-4">
                     <h2 className="text-xl font-bold mb-2">Ingredients:</h2>
-                    <h3 className='text-xl'>{recipe?.ingredients} </h3>
+                    <ul className="text-xl flex flex-wrap gap-3">
+                        {ingredients.map((ingredient, index) => (
+                            <li key={index}>{ingredient}</li>
+                        ))}
+                    </ul>
                 </div>
                 <div className="mb-4">
                     <h2 className="text-xl font-bold mb-2">Instructions:</h2>
-                    <h3 className='text-xl'>{recipe?.instructions} </h3>
+                    <ul className="text-xl flex flex-col">
+                        {instructions.map((instruction, index) => (
+                            <li key={index}>{instruction}</li>
+                        ))}
+                    </ul>
                 </div>
                 <p><b>Time</b> : {recipe?.time}</p>
             </div>
