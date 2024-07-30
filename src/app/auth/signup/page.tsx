@@ -15,7 +15,11 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
+<<<<<<< HEAD
 const Signup = () => {
+=======
+const SignUp = () => {
+>>>>>>> development
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -136,4 +140,8 @@ const Signup = () => {
     )
 }
 
+<<<<<<< HEAD
 export default Signup
+=======
+export default SignUp
+>>>>>>> development

@@ -9,7 +9,11 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 
+<<<<<<< HEAD
 const Recipes = () => {
+=======
+const AllRecipes = () => {
+>>>>>>> development
 
 
     const [recipes, setRecipes] = useState([])
@@ -77,4 +81,8 @@ const Recipes = () => {
     )
 }
 
+<<<<<<< HEAD
 export default Recipes
+=======
+export default AllRecipes
+>>>>>>> development
