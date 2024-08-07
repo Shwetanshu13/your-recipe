@@ -2,7 +2,7 @@
 
 import { Recipe } from '@/model/Recipe.model'
 import axios from 'axios'
-import { Loader, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
