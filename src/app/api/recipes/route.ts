@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/options";
 import ApiResponse from "@/utils/ApiResponse";
-import mongoose from "mongoose";
 import RecipeModel from "@/model/Recipe.model";
 
 

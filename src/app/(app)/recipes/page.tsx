@@ -4,7 +4,7 @@ import RecipeCard from '@/components/custom/RecipeCard'
 import { Button } from '@/components/ui/button'
 import { Recipe } from '@/model/Recipe.model'
 import axios from 'axios'
-import { Loader, Loader2, Plus } from 'lucide-react'
+import { Loader2, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
