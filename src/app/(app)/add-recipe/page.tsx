@@ -1,81 +1,100 @@
-'use client'
+"use client";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { recipeSchema } from '@/schemas/recipeSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
-import axios from 'axios'
-import ApiResponse from '@/utils/ApiResponse'
-import { toast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { recipeSchema } from "@/schemas/recipeSchema";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import axios from "axios";
+import ApiResponse from "@/utils/ApiResponse";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const AddRecipe = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const router = useRouter()
-
-  const form = useForm(
-    {
-      resolver: zodResolver(recipeSchema),
-      defaultValues: {
-        name: '',
-        ingredients: '',
-        instructions: '',
-        time: '',
-        imageInput: ''
-      }
-    }
-  )
+  const form = useForm({
+    resolver: zodResolver(recipeSchema),
+    defaultValues: {
+      name: "",
+      ingredients: "",
+      instructions: "",
+      time: "",
+      dishType: "",
+      imageLink: "",
+      refVideoLink: "",
+      tags: "",
+      course: "",
+      cuisine: "",
+      viewers: "",
+    },
+  });
 
   const addRecipe = async (data: z.infer<typeof recipeSchema>) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
-      const response = await axios.post('/api/add-recipe', data)
+      const response = await axios.post("/api/add-recipe", data);
       toast({
         title: "Recipe added",
-        description: response.data.message
-      })
-      router.push('/recipes')
+        description: response.data.message,
+      });
+      router.push("/recipes");
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       toast({
         title: "Error",
         description: error.response.data?.message,
-        variant: "destructive"
-      })
-      return ApiResponse(false, "Error adding recipe", 500)
+        variant: "destructive",
+      });
+      return ApiResponse(false, "Error adding recipe", 500);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
-
+  };
 
   return (
-    <div className='flex min-h-screen bg-gray-100'>
+    <div className="flex min-h-screen bg-gray-100">
       <div className="w-5/12 hidden lg:block">
         <div className="h-full flex justify-center items-center">
-          <Image width={1000} height={1} src="/images/recipe.jpg" alt="Sample Recipe Pic" className='h-full' />
+          <Image
+            width={1000}
+            height={1}
+            src="/images/recipe.jpg"
+            alt="Sample Recipe Pic"
+            className="h-full"
+          />
         </div>
       </div>
       <div className="w-full lg:w-7/12 flex align-middle">
         <div className="p-10 bg-white shadow-xl rounded-lg w-5/6 h-fit my-auto mx-auto">
           <div className="flex justify-center items-center flex-col mx-auto gap-3">
             <h1 className="text-3xl font-bold">My Recipe Book</h1>
-            <h3 className='text-xl text-center font-semibold'>{isSubmitting ? "Adding ..." : "Add Recipe"}</h3>
+            <h3 className="text-xl text-center font-semibold">
+              {isSubmitting ? "Adding ..." : "Add Recipe"}
+            </h3>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(addRecipe)} className='space-y-6 w-full'>
+              <form
+                onSubmit={form.handleSubmit(addRecipe)}
+                className="space-y-6 w-full"
+              >
                 <FormField
                   control={form.control}
-                  name='name'
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Title</FormLabel>
@@ -88,7 +107,7 @@ const AddRecipe = () => {
                 />
                 <FormField
                   control={form.control}
-                  name='ingredients'
+                  name="ingredients"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Ingredients</FormLabel>
@@ -105,7 +124,7 @@ const AddRecipe = () => {
                 />
                 <FormField
                   control={form.control}
-                  name='instructions'
+                  name="instructions"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Instructions</FormLabel>
@@ -122,7 +141,7 @@ const AddRecipe = () => {
                 />
                 <FormField
                   control={form.control}
-                  name='time'
+                  name="time"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Time</FormLabel>
@@ -133,16 +152,138 @@ const AddRecipe = () => {
                     </FormItem>
                   )}
                 />
-                <Button type='submit' disabled={isSubmitting}>
-                  {isSubmitting ? <> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> </> : "Add Recipe"}
+                <FormField
+                  control={form.control}
+                  name="dishType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Dish Type</FormLabel>
+                      <FormControl>
+                        <select {...field} className="input">
+                          <option value="">Select Dish Type</option>
+                          <option value="veg">Veg</option>
+                          <option value="nonVeg">Non-Veg</option>
+                        </select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="imageLink"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Image Link</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Image Link" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="refVideoLink"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Reference Video Link</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Reference Video Link" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="tags"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tags</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Tags" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="course"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Course</FormLabel>
+                      <FormControl>
+                        <select {...field} className="input">
+                          <option value="">Select Course</option>
+                          <option value="Breakfast">Breakfast</option>
+                          <option value="Lunch">Lunch</option>
+                          <option value="Dinner">Dinner</option>
+                          <option value="Snack">Snack</option>
+                          <option value="Starter">Starter</option>
+                          <option value="Main Course">Main Course</option>
+                          <option value="Dessert">Dessert</option>
+                          <option value="Drink">Drink</option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="cuisine"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cuisine</FormLabel>
+                      <FormControl>
+                        <select {...field} className="input">
+                          <option value="">Select Cuisine</option>
+                          <option value="North Indian">North Indian</option>
+                          <option value="South Indian">South Indian</option>
+                          <option value="American">American</option>
+                          <option value="Continental">Continental</option>
+                          <option value="Chinese">Chinese</option>
+                          <option value="Korean">Korean</option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="viewers"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Viewers</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Viewers" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      {" "}
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    </>
+                  ) : (
+                    "Add Recipe"
+                  )}
                 </Button>
-              </form> 
+              </form>
             </Form>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddRecipe
+export default AddRecipe;

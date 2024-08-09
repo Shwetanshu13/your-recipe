@@ -5,35 +5,55 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import ApiResponse from "@/utils/ApiResponse";
 import RecipeModel from "@/model/Recipe.model";
 
-export async function POST(request:NextRequest) {
-    await dbConnect();
-    
-    const session = await getServerSession(authOptions)
-    const user = session?.user
+export async function POST(request: NextRequest) {
+  await dbConnect();
 
-    if(!session || !user){
-        return ApiResponse(false, "You need to be logged in to view this page", 401);
-    }
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
 
-    const {name, ingredients, instructions, time} = await request.json();
-    
+  if (!session || !user) {
+    return ApiResponse(
+      false,
+      "You need to be logged in to view this page",
+      401
+    );
+  }
 
-    try {
-        const newRecipe = new RecipeModel({
-            userid: user._id,
-            name:name.trim(),
-            ingredients:ingredients.trim(),
-            instructions:instructions.trim(),
-            time:time.trim()
-        });
+  const {
+    name,
+    ingredients,
+    instructions,
+    time,
+    dishType,
+    imageLink,
+    refVideoLink,
+    tags,
+    course,
+    cuisine,
+    viewers,
+  } = await request.json();
 
-        await newRecipe.save();
+  try {
+    const newRecipe = new RecipeModel({
+      userid: user._id,
+      name: name.trim(),
+      ingredients: ingredients.trim(),
+      instructions: instructions.trim(),
+      time: time.trim(),
+      dishType: dishType.trim(),
+      imageLink: imageLink.trim(),
+      refVideoLink: refVideoLink.trim(),
+      tags: tags,
+      course: course.trim(),
+      cuisine: cuisine.trim(),
+      viewers: viewers,
+    });
 
-        return ApiResponse(true, "Recipe added successfully", 201);
+    await newRecipe.save();
 
-    } catch (error) {
-        console.log(error)
-        return ApiResponse(false, "An error occured while adding recipe", 505);
-    }
-
+    return ApiResponse(true, "Recipe added successfully", 201);
+  } catch (error) {
+    console.log(error);
+    return ApiResponse(false, "An error occured while adding recipe", 505);
+  }
 }
