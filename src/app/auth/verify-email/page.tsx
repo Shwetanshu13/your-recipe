@@ -125,7 +125,7 @@ const VerifyEmail = () => {
                 </Link>
               </h3>
               <h3 className="my-2 text-center text-gray-500">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="/auth/signup" className=" text-black">
                   Register
                 </Link>
