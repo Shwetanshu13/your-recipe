@@ -5,66 +5,75 @@ import bcrypt from "bcryptjs";
 import { AuthOptions } from "next-auth";
 
 const authOptions: AuthOptions = {
-    providers: [
-        CredentialsProvider({
-            id: "credentials",
-            name: "Credentials",
-            credentials: {
-                email: { label: "Email", type: "text", placeholder: "Enter Email" },
-                password: { label: "Password", type: "password" }
-            },
-            async authorize(credentials: any): Promise<any> {
-                await dbConnect();
+  providers: [
+    CredentialsProvider({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "Enter Email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: any): Promise<any> {
+        await dbConnect();
 
-                try {
-                    const user = await UserModel.findOne({ email: credentials.identifier });
+        try {
+          const user = await UserModel.findOne({
+            email: credentials.identifier,
+          });
 
-                    if (!user) {
-                        throw new Error("No user found with this email address");
-                    }
+          if (!user) {
+            throw new Error("No user found with this email address");
+          }
 
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+          const isPasswordCorrect = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
 
-                    if (!isPasswordCorrect) {
-                        throw new Error("Password is incorrect");
-                    }
+          if (!isPasswordCorrect) {
+            throw new Error("Password is incorrect");
+          }
 
-                    return user;
+          if (!user.verified) {
+            throw new Error(
+              "User is not verified. Please check your email and verify yourself before login."
+            );
+          }
 
-                } catch (error) {
-                    console.log("Error in Login " + error);
-                    return null;
-                }
-            }
-        })
-    ],
-    callbacks: {
-        async jwt({token, user}) {
-            if (user) {
-                token._id = user._id;
-                token.name = user.name;
-            }
-
-            return token;
-        },
-        async session({session, token}) {
-            // session.user.id = token.id;
-            if (token) {
-                session.user._id = token._id;
-                session.user.name = token.name;
-            }
-
-            return session;
+          return user;
+        } catch (error) {
+          console.log("Error in Login " + error);
+          return null;
         }
-    
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token._id = user._id;
+        token.name = user.name;
+      }
+
+      return token;
     },
-    pages: {
-        signIn: "/auth/login",
+    async session({ session, token }) {
+      // session.user.id = token.id;
+      if (token) {
+        session.user._id = token._id;
+        session.user.name = token.name;
+      }
+
+      return session;
     },
-    session: {
-        strategy: "jwt",
-    },
-    secret: process.env.NEXTAUTH_SECRET,
+  },
+  pages: {
+    signIn: "/auth/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
-export {authOptions} 
+export { authOptions };

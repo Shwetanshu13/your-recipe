@@ -1,46 +1,39 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { recipeSchema } from "@/schemas/recipeSchema";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
-import ApiResponse from "@/utils/ApiResponse";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const AddRecipe = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const form = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(recipeSchema),
     defaultValues: {
       name: "",
       ingredients: "",
       instructions: "",
       time: "",
-      dishType: "",
+      dishType: "veg",
       imageLink: "",
       refVideoLink: "",
-      tags: "",
+      tags: [],
       course: "",
       cuisine: "",
-      viewers: "",
+      viewers: [],
     },
   });
 
@@ -61,7 +54,6 @@ const AddRecipe = () => {
         description: error.response.data?.message,
         variant: "destructive",
       });
-      return ApiResponse(false, "Error adding recipe", 500);
     } finally {
       setIsSubmitting(false);
     }
@@ -87,198 +79,193 @@ const AddRecipe = () => {
             <h3 className="text-xl text-center font-semibold">
               {isSubmitting ? "Adding ..." : "Add Recipe"}
             </h3>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(addRecipe)}
-                className="space-y-6 w-full"
+            <form
+              onSubmit={handleSubmit(addRecipe)}
+              className="space-y-6 w-full"
+            >
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  {...register("name")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                />
+                {errors.name && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Ingredients
+                </label>
+                <textarea
+                  {...register("ingredients")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border resize-none"
+                />
+                {errors.ingredients && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.ingredients.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Instructions
+                </label>
+                <textarea
+                  {...register("instructions")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border resize-none"
+                />
+                {errors.instructions && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.instructions.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Time
+                </label>
+                <input
+                  type="text"
+                  {...register("time")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                />
+                {errors.time && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.time.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Dish Type
+                </label>
+                <select
+                  {...register("dishType")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                >
+                  <option value="">Select Dish Type</option>
+                  <option value="veg">Veg 🟢</option>
+                  <option value="nonVeg">Non-Veg 🔴</option>
+                </select>
+                {errors.dishType && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.dishType.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Image Link
+                </label>
+                <input
+                  type="text"
+                  {...register("imageLink")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                />
+                {errors.imageLink && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.imageLink.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Reference Video Link
+                </label>
+                <input
+                  type="text"
+                  {...register("refVideoLink")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                />
+                {errors.refVideoLink && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.refVideoLink.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Tags
+                </label>
+                <input
+                  type="text"
+                  {...register("tags")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                />
+                {errors.tags && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.tags.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Course
+                </label>
+                <select
+                  {...register("course")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                >
+                  <option value="">Select Course</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Lunch">Lunch</option>
+                  <option value="Dinner">Dinner</option>
+                  <option value="Snack">Snack</option>
+                  <option value="Starter">Starter</option>
+                  <option value="Main Course">Main Course</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Drink">Drink</option>
+                  <option value="Others">Others</option>
+                </select>
+                {errors.course && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.course.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Cuisine
+                </label>
+                <select
+                  {...register("cuisine")}
+                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                >
+                  <option value="">Select Cuisine</option>
+                  <option value="North Indian">North Indian</option>
+                  <option value="South Indian">South Indian</option>
+                  <option value="American">American</option>
+                  <option value="Continental">Continental</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Korean">Korean</option>
+                  <option value="Others">Others</option>
+                </select>
+                {errors.cuisine && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.cuisine.message}
+                  </p>
+                )}
+              </div>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-2 mt-4"
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Title</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Title" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="ingredients"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ingredients</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Ingredients"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="instructions"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Instructions</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Instructions"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="time"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Time</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Time" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="dishType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Dish Type</FormLabel>
-                      <FormControl>
-                        <select {...field} className="input">
-                          <option value="">Select Dish Type</option>
-                          <option value="veg">Veg</option>
-                          <option value="nonVeg">Non-Veg</option>
-                        </select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="imageLink"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Image Link</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Image Link" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="refVideoLink"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Reference Video Link</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Reference Video Link" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="tags"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Tags</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Tags" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="course"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Course</FormLabel>
-                      <FormControl>
-                        <select {...field} className="input">
-                          <option value="">Select Course</option>
-                          <option value="Breakfast">Breakfast</option>
-                          <option value="Lunch">Lunch</option>
-                          <option value="Dinner">Dinner</option>
-                          <option value="Snack">Snack</option>
-                          <option value="Starter">Starter</option>
-                          <option value="Main Course">Main Course</option>
-                          <option value="Dessert">Dessert</option>
-                          <option value="Drink">Drink</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cuisine"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cuisine</FormLabel>
-                      <FormControl>
-                        <select {...field} className="input">
-                          <option value="">Select Cuisine</option>
-                          <option value="North Indian">North Indian</option>
-                          <option value="South Indian">South Indian</option>
-                          <option value="American">American</option>
-                          <option value="Continental">Continental</option>
-                          <option value="Chinese">Chinese</option>
-                          <option value="Korean">Korean</option>
-                          <option value="Others">Others</option>
-                        </select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="viewers"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Viewers</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Viewers" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      {" "}
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
-                    </>
-                  ) : (
-                    "Add Recipe"
-                  )}
-                </Button>
-              </form>
-            </Form>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  </>
+                ) : (
+                  "Add Recipe"
+                )}
+              </Button>
+            </form>
           </div>
         </div>
       </div>

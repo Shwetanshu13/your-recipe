@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { string } from "zod";
 
 export interface Recipe extends Document {
   userid: string;
@@ -22,7 +21,7 @@ const RecipeSchema: Schema = new Schema({
   ingredients: { type: String, required: true },
   instructions: { type: String, required: true },
   time: { type: String, required: true },
-  dishType: { type: string, enum: ["veg", "nonVeg"], required: true },
+  dishType: { type: String, enum: ["veg", "nonVeg"], required: true },
   imageLink: { type: String, required: false },
   refVideoLink: { type: String, required: false },
   tags: { type: [String], required: false },

@@ -1,10 +1,11 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface User extends Document {
-  username: string;
   name: string;
   email: string;
   password: string;
+  verificationCode: string;
+  verified: boolean;
   totalRecipes: number;
   yourRecipes: number;
   sharedRecipes: number;
@@ -12,10 +13,11 @@ export interface User extends Document {
 }
 
 const UserSchema: Schema = new Schema({
-  username: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  verificationCode: { type: String, required: true },
+  verified: { type: Boolean, default: false },
   totalRecipes: { type: Number, default: 0 },
   yourRecipes: { type: Number, default: 0 },
   sharedRecipes: { type: Number, default: 0 },

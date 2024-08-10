@@ -1,12 +1,19 @@
-const ApiResponse = (success:boolean, msg:string, stat:number) =>{
-    return Response.json(
-        {
-            success: success,
-            message: msg
-        },
-        {
-            status: stat
-        }
-    )}
+const ApiResponse = (
+  success: boolean,
+  msg: string,
+  stat: number,
+  data?: any
+) => {
+  return Response.json(
+    {
+      success,
+      message: msg,
+      data,
+    },
+    {
+      status: stat,
+    }
+  );
+};
 
 export default ApiResponse;
