@@ -19,19 +19,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const {
-    name,
-    ingredients,
-    instructions,
-    time,
-    dishType,
-    imageLink,
-    refVideoLink,
-    tags,
-    course,
-    cuisine,
-    viewers,
-  } = await request.json();
+  const { name, ingredients, instructions, time } = await request.json();
 
   try {
     const newRecipe = new RecipeModel({
@@ -40,13 +28,6 @@ export async function POST(request: NextRequest) {
       ingredients: ingredients.trim(),
       instructions: instructions.trim(),
       time: time.trim(),
-      dishType: dishType.trim(),
-      imageLink: imageLink.trim(),
-      refVideoLink: refVideoLink.trim(),
-      tags: tags,
-      course: course.trim(),
-      cuisine: cuisine.trim(),
-      viewers: viewers,
     });
 
     await newRecipe.save();

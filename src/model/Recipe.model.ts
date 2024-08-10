@@ -6,13 +6,6 @@ export interface Recipe extends Document {
   ingredients: string;
   instructions: string;
   time: string;
-  dishType: string;
-  imageLink?: string;
-  refVideoLink?: string;
-  tags?: string[];
-  course?: string;
-  cuisine?: string;
-  viewers?: string[];
 }
 
 const RecipeSchema: Schema = new Schema({
@@ -21,46 +14,6 @@ const RecipeSchema: Schema = new Schema({
   ingredients: { type: String, required: true },
   instructions: { type: String, required: true },
   time: { type: String, required: true },
-  dishType: { type: String, enum: ["veg", "nonVeg"], required: true },
-  imageLink: { type: String, required: false },
-  refVideoLink: { type: String, required: false },
-  tags: { type: [String], required: false },
-  course: {
-    type: String,
-    enum: [
-      "Breakfast",
-      "Lunch",
-      "Dinner",
-      "Snack",
-      "Starter",
-      "Main Course",
-      "Dessert",
-      "Drink",
-      "Others",
-    ],
-    required: true,
-    default: "Others",
-  },
-  cuisine: {
-    type: String,
-    enum: [
-      "North Indian",
-      "South Indian",
-      "American",
-      "Continental",
-      "Chinese",
-      "Korean",
-      "Others",
-    ],
-    required: true,
-    default: "Others",
-  },
-  viewers: {
-    type: [Schema.Types.ObjectId],
-    ref: "User",
-    required: false,
-    default: [],
-  },
 });
 
 const RecipeModel =

@@ -27,13 +27,6 @@ const AddRecipe = () => {
       ingredients: "",
       instructions: "",
       time: "",
-      dishType: "veg",
-      imageLink: "",
-      refVideoLink: "",
-      tags: [],
-      course: "",
-      cuisine: "",
-      viewers: [],
     },
   });
 
@@ -138,117 +131,6 @@ const AddRecipe = () => {
                 {errors.time && (
                   <p className="mt-2 text-sm text-red-600">
                     {errors.time.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Dish Type
-                </label>
-                <select
-                  {...register("dishType")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                >
-                  <option value="">Select Dish Type</option>
-                  <option value="veg">Veg 🟢</option>
-                  <option value="nonVeg">Non-Veg 🔴</option>
-                </select>
-                {errors.dishType && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.dishType.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Image Link
-                </label>
-                <input
-                  type="text"
-                  {...register("imageLink")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                />
-                {errors.imageLink && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.imageLink.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Reference Video Link
-                </label>
-                <input
-                  type="text"
-                  {...register("refVideoLink")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                />
-                {errors.refVideoLink && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.refVideoLink.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Tags
-                </label>
-                <input
-                  type="text"
-                  {...register("tags")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                />
-                {errors.tags && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.tags.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Course
-                </label>
-                <select
-                  {...register("course")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                >
-                  <option value="">Select Course</option>
-                  <option value="Breakfast">Breakfast</option>
-                  <option value="Lunch">Lunch</option>
-                  <option value="Dinner">Dinner</option>
-                  <option value="Snack">Snack</option>
-                  <option value="Starter">Starter</option>
-                  <option value="Main Course">Main Course</option>
-                  <option value="Dessert">Dessert</option>
-                  <option value="Drink">Drink</option>
-                  <option value="Others">Others</option>
-                </select>
-                {errors.course && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.course.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Cuisine
-                </label>
-                <select
-                  {...register("cuisine")}
-                  className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
-                >
-                  <option value="">Select Cuisine</option>
-                  <option value="North Indian">North Indian</option>
-                  <option value="South Indian">South Indian</option>
-                  <option value="American">American</option>
-                  <option value="Continental">Continental</option>
-                  <option value="Chinese">Chinese</option>
-                  <option value="Korean">Korean</option>
-                  <option value="Others">Others</option>
-                </select>
-                {errors.cuisine && (
-                  <p className="mt-2 text-sm text-red-600">
-                    {errors.cuisine.message}
                   </p>
                 )}
               </div>
