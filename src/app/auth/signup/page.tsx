@@ -68,6 +68,19 @@ const Signup = () => {
               description: emailRes.data.message,
               variant: "destructive",
             });
+            const deleteUserRes = await axios.post("/api/auth/delete-user", {
+              userid: newUser._id,
+            });
+            if (deleteUserRes.data.success) {
+              toast({
+                title: "Error in signup",
+                description:
+                  "There was an error sending the verification email. Please try registering after some time.",
+                variant: "destructive",
+              });
+            } else {
+              console.log(deleteUserRes.data);
+            }
           }
         } else {
           toast({
