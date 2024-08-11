@@ -33,14 +33,6 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
-
-1. Fork the repository.
-2. Create your feature branch: `git checkout -b feature/my-feature`.
-3. Commit your changes: `git commit -am 'Add some feature'`.
-4. Push to the branch: `git push origin feature/my-feature`.
-5. Submit a pull request.
-
-Please ensure your pull request adheres to the code style of the project and includes relevant tests.
+The website is actually a personal hobby project. Therefore it is requested not to make any contributions.
 
 
