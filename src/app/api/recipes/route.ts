@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
   const session = await getServerSession(authOptions);
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
 
   if (!session || !user) {
     return ApiResponse(
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
   // const userId = new mongoose.Types.ObjectId(user._id);
   const userId = user._id;
-  console.log(userId);
+  // console.log(userId);
 
   try {
     const recipies = await RecipeModel.find({ userid: userId });
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return ApiResponse(false, "An error occured while fetching recipies", 500);
   }
 }

@@ -36,7 +36,7 @@ export async function POST(req: Request, res: Response) {
 
     return ApiResponse(true, "Password reset successfully", 200);
   } catch (error) {
-    console.log("Error in forgot-password route: ", error);
+    // console.log("Error in forgot-password route: ", error);
     return ApiResponse(
       false,
       "Error verifying forgot password OTP and reseting password.",

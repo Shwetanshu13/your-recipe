@@ -23,7 +23,7 @@ export async function POST(req: Request, res: Response) {
 
     return ApiResponse(true, "Email verified successfully", 200);
   } catch (error) {
-    console.log("Error in verify email route: ", error);
+    // console.log("Error in verify email route: ", error);
 
     return ApiResponse(false, "Error verifying email", 500);
   }

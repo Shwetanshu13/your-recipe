@@ -39,7 +39,7 @@ const Login = () => {
         password: data.password,
       });
       if (result?.error) {
-        console.log(result);
+        // console.log(result);
         toast({
           title: "Login Failed",
           description:
@@ -51,7 +51,7 @@ const Login = () => {
         router.replace("/home");
       }
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
       toast({
         title: "Error",
         description: error.message,

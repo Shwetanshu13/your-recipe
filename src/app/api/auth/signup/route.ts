@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       });
     }
   } catch (error) {
-    console.log("Error in signup route: ", error);
+    // console.log("Error in signup route: ", error);
 
     return ApiResponse(false, "Error registering user", 500);
   }

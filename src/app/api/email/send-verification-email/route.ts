@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     return ApiResponse(true, "Verification email sent successfully", 200);
   } catch (error) {
-    console.log("Error in send-verification-email route: ", error);
+    // console.log("Error in send-verification-email route: ", error);
     return ApiResponse(false, "Error sending verification email", 500);
   }
 }

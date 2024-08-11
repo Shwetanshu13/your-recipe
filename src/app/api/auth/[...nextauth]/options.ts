@@ -42,7 +42,7 @@ const authOptions: AuthOptions = {
 
           return user;
         } catch (error) {
-          console.log("Error in Login " + error);
+          // console.log("Error in Login " + error);
           return null;
         }
       },

@@ -42,7 +42,7 @@ const VerifyEmail = () => {
         router.push("/auth/login");
       }
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
       toast({
         title: "Error",
         description: error.response.data?.message,

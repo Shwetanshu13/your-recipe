@@ -36,7 +36,7 @@ const Signup = () => {
     try {
       const response = await axios.post("/api/auth/signup", data);
       if (response.data.success) {
-        console.log("User registered:", response.data);
+        // console.log("User registered:", response.data);
         toast({
           title: "User registered",
           description: response.data.message,
@@ -62,7 +62,7 @@ const Signup = () => {
             });
             router.push("/auth/verify-email");
           } else {
-            console.log(emailRes.data);
+            // console.log(emailRes.data);
             toast({
               title: "Error",
               description: emailRes.data.message,
@@ -79,7 +79,7 @@ const Signup = () => {
                 variant: "destructive",
               });
             } else {
-              console.log(deleteUserRes.data);
+              // console.log(deleteUserRes.data);
             }
           }
         } else {
@@ -97,7 +97,7 @@ const Signup = () => {
         });
       }
     } catch (error: any) {
-      console.log("Error in registerUser:", error);
+      // console.log("Error in registerUser:", error);
       toast({
         title: "Error",
         description: error.response?.data?.message || error.message,

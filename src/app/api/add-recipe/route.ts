@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     return ApiResponse(true, "Recipe added successfully", 201);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return ApiResponse(false, "An error occured while adding recipe", 505);
   }
 }

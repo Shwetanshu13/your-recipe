@@ -19,7 +19,7 @@ const Recipes = () => {
       const response = await axios.get("/api/recipes");
       setRecipes(response.data.messages);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }
