@@ -18,9 +18,10 @@ const RecipeItem = () => {
   const fetchRecipe = async () => {
     try {
       const response = await axios.get(`/api/recipeItem?recipieId=${recipeId}`);
-      setRecipe(response.data.data.recipe);
-      setIngredients(response.data.data.recipe.ingredients.split("\n"));
-      setInstructions(response.data.data.recipe.instructions.split("\n"));
+      // console.log(response.data, response.data.data);
+      setRecipe(response.data.data);
+      setIngredients(response.data.data.ingredients.split("\n"));
+      setInstructions(response.data.data.instructions.split("\n"));
       // console.log(ingredients, instructions);
     } catch (error) {
       // console.log(error);
